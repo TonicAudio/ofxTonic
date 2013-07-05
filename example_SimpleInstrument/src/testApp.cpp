@@ -38,8 +38,10 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::trigger(){
   static int twoOctavePentatonicScale[10] = {0, 2, 4, 7, 9, 12, 14, 16, 19, 21};
+  int degreeToTrigger = floor(ofClamp(scaleDegree, 0, 9));
+	
   // set a parameter that we created when we defined the synth
-  synth.setParameter("midiNumber", 44 + twoOctavePentatonicScale[scaleDegree]);
+  synth.setParameter("midiNumber", 44 + twoOctavePentatonicScale[degreeToTrigger]);
   
   // simply setting the value of a parameter causes that parameter to send a "trigger" message to any
   // using them as triggers
