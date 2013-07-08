@@ -1,6 +1,5 @@
 #include "testApp.h"
 
-
 #define INT_TO_STRING( x ) dynamic_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
 
