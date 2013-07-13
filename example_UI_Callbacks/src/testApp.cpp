@@ -1,13 +1,16 @@
 #include "testApp.h"
+#include <functional>
 
 #define INT_TO_STRING( x ) dynamic_cast< std::ostringstream & >( \
         ( std::ostringstream() << std::dec << x ) ).str()
 
 
-const int NUM_VOICES = 10;
+const int NUM_VOICES = 5;
 
 //--------------------------------------------------------------
 void testApp::setup(){
+
+  ofHideCursor();
   ofSoundStreamSetup(2, 0, this, 44100, 256, 4);
   ofSetFrameRate(60);
   ofSetVerticalSync(true);
@@ -19,18 +22,18 @@ void testApp::setup(){
   
   Generator allVoices;
   
+  Generator noise = PinkNoise();
+  
   for(int i = 0; i < NUM_VOICES; i++){
-    
     
     float xPos = ofGetScreenWidth() * i / NUM_VOICES;
     FlashingRectangle* flasher = new FlashingRectangle();
-    flasher->rect = ofRectangle(xPos, 0, 10, ofGetWindowHeight());
+    flasher->rect = ofRectangle(xPos, 0, ofGetScreenWidth() / NUM_VOICES, ofGetWindowHeight());
     flasher->maxWidth = ofGetWindowWidth() / NUM_VOICES;
     flashingRectangles.push_back( flasher );
   
-
     ControlGenerator resetTrigger = ControlMetro().bpm(ofRandom(10, 15));
-    ControlGenerator noiseTrigger = ControlMetro().bpm( ControlRandom().min(50).max(300).trigger( resetTrigger ));
+    ControlGenerator noiseTrigger = ControlMetro().bpm( ControlRandom().min(50).max(500).trigger( resetTrigger ));
     
     // Every time noiseTrigger triggers, a message will be sent to all ControlChangeSubscriber
     // objects subscribing.
@@ -38,9 +41,14 @@ void testApp::setup(){
     synth.publishChanges(noiseTrigger, subscriptionName);
     synth.addControlChangeSubscriber(subscriptionName, &flasher->flasher);
     
-    Generator noise = PinkNoise();
+    ControlGenerator pulseLen = ControlRandom().min(0.03).max(0.5).trigger(resetTrigger);
+    pulseLen = pulseLen * pulseLen;
     
-    Generator env = ADSR(0.001, 0.1, 0,0).legato(true).trigger(noiseTrigger);
+    ControlGenerator pulse =  ControlPulse().length(pulseLen).input(noiseTrigger);
+    string pulseSubscriptionName = "plulse" + INT_TO_STRING(i);
+    synth.publishChanges(pulse, pulseSubscriptionName);
+    synth.addControlChangeSubscriber(pulseSubscriptionName, &flasher->flasher);
+    Generator env =  ADSR(0.01,0,0.5,0.01).decay(pulseLen * 0.5).trigger( pulse );
     
     Generator voice = noise * env;
     
@@ -49,13 +57,24 @@ void testApp::setup(){
     string highPassSubscriptionName = "highPassAmount" + INT_TO_STRING(i);
     synth.publishChanges(highPassAmount, highPassSubscriptionName);
     synth.addControlChangeSubscriber(highPassSubscriptionName, &flasher->intensitySetter);
-    ControlGenerator filterFreq = highPassAmount * 15000;
-    voice = HPF24().cutoff(filterFreq).input(voice);
+    ControlGenerator filterFreq = 70 + highPassAmount * 5000;
+    ControlGenerator q = ControlRandom().min(0).max(1).trigger(resetTrigger);
+    q = q * q * 20;
+    ControlGenerator filterVolumeMakeup = highPassAmount + 0.3;
+    voice = BPF24().cutoff(filterFreq).input(voice).Q(q);
     
     float pan = (2 * (float)i / NUM_VOICES) - 1;
     voice =  MonoToStereoPanner().pan(pan).input(voice);
     
-    allVoices = allVoices + voice;
+    
+    
+//    ///////////////////////// sine waves ////////////////////
+//    
+//    voice = SineWave().freq(filterFreq) * env;
+//    voice = MonoToStereoPanner().pan(pan).input(voice);
+//    
+    
+    allVoices = allVoices + voice / NUM_VOICES;
     
     
   }

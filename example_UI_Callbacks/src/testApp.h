@@ -10,25 +10,34 @@ class FlashingRectangle{
 
 protected:
 
-  float brightness;
-  float intensity;
-
+  ///////////////////////
+  // Inner class Flasher
+  ///////////////////////
   class Flasher : public ControlChangeSubscriber{
-    FlashingRectangle* target;
   public:
+    FlashingRectangle* target;
     Flasher(FlashingRectangle* targetArg):target(targetArg){}
-    void valueChanged(string name, float value){target->flash();}
+    void valueChanged(string name, float value){
+      target->brightness = value;
+    }
   };
-      
+  
+  ///////////////////////
+  // Inner class IntensitySetter
+  ///////////////////////    
   class IntensitySetter : public ControlChangeSubscriber{
     FlashingRectangle* target;
   public:
     IntensitySetter(FlashingRectangle* targetArg):target(targetArg){}
-    void valueChanged(string name, float value){target->setIntensity(1 - value);}
+    void valueChanged(string name, float value){
+      target->setIntensity(1 - value);
+    }
   };
   
 public:
   
+  float brightness;
+  float intensity;
   ofRectangle rect;
   Flasher flasher;
   IntensitySetter intensitySetter;
@@ -40,13 +49,14 @@ public:
   }
   
   void update(){
-    brightness = max(0, brightness - 0.1);
+   // brightness = max(0, brightness - 0.1);
   }
   
   ofColor getColor(){
     int colorVal = (brightness > 0.5 ? 255 : 0) * intensity;
     if(brightness > 0.5){
-      return ofColor(255 * 0.5, 151 * 0.5, 0 * 0.5);
+      float colorIntensity = 0.2 + 0.8 * intensity;
+      return ofColor(255 * colorIntensity, 151 * colorIntensity, 0);
     }else{
       return ofColor(colorVal, colorVal, colorVal);
     }
@@ -57,7 +67,6 @@ public:
   }
   
   void setIntensity(float intensityArg){
-    rect.setWidth(intensityArg * maxWidth);
     intensity = intensityArg;
   }
   
