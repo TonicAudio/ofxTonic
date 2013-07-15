@@ -1,73 +1,38 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Tonic.h"
+#include "ofxTonic.h"
 
 using namespace Tonic;
 
 
 class FlashingRectangle{
 
-protected:
-
-  ///////////////////////
-  // Inner class Flasher
-  ///////////////////////
-  class Flasher : public ControlChangeSubscriber{
-  public:
-    FlashingRectangle* target;
-    Flasher(FlashingRectangle* targetArg):target(targetArg){}
-    void valueChanged(string name, float value){
-      target->brightness = value;
-    }
-  };
-  
-  ///////////////////////
-  // Inner class IntensitySetter
-  ///////////////////////    
-  class IntensitySetter : public ControlChangeSubscriber{
-    FlashingRectangle* target;
-  public:
-    IntensitySetter(FlashingRectangle* targetArg):target(targetArg){}
-    void valueChanged(string name, float value){
-      target->setIntensity(1 - value);
-    }
-  };
+  bool isOn;
+  ofRectangle rect;
+  ofColor color;
   
 public:
   
-  float brightness;
-  float intensity;
-  ofRectangle rect;
-  Flasher flasher;
-  IntensitySetter intensitySetter;
-  
-  float maxWidth;
-  
-  FlashingRectangle() : flasher(this), intensitySetter(this){
-    brightness = 0;
+  FlashingRectangle(float xPosition, float width):
+    rect(xPosition, 0, width, ofGetScreenHeight()){
   }
   
-  void update(){
-   // brightness = max(0, brightness - 0.1);
+  void pulseHappened(float& val){
+    isOn = val;
   }
   
-  ofColor getColor(){
-    int colorVal = (brightness > 0.5 ? 255 : 0) * intensity;
-    if(brightness > 0.5){
-      float colorIntensity = 0.2 + 0.8 * intensity;
-      return ofColor(255 * colorIntensity, 151 * colorIntensity, 0);
-    }else{
-      return ofColor(colorVal, colorVal, colorVal);
+  void filterFreqChanged(float & val){
+    rect.setHeight((1 - val) * ofGetScreenHeight());
+    float colorIntensity =0.2 + 0.8 * (val);
+    color = ofColor(55 * colorIntensity, 55 * colorIntensity, 255 * colorIntensity);
+  }
+  
+  void draw(){
+    if(isOn){
+      ofSetColor(color);
+      ofRect(rect);
     }
-  }
-  
-  void flash(){
-      brightness = 1;
-  }
-  
-  void setIntensity(float intensityArg){
-    intensity = intensityArg;
   }
   
 };
@@ -75,7 +40,7 @@ public:
 
 class testApp : public ofBaseApp{
 
-  Synth synth;
+  ofxTonicSynth synth;
   vector<FlashingRectangle*> flashingRectangles;
 
 	public:
