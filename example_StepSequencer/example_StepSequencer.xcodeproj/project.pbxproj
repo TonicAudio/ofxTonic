@@ -654,7 +654,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
-					../../../addons/ofxTonic/libs,
+					../libs,
 					../src,
 					../src/Tonic,
 				);
@@ -690,7 +690,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
-					../../../addons/ofxTonic/libs,
+					../libs,
 					../src,
 					../src/Tonic,
 				);
