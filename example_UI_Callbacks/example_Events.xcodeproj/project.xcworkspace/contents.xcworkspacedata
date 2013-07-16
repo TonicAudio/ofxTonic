@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:example_UI_Callbacks.xcodeproj">
+      location = "self:example_Events.xcodeproj">
    </FileRef>
 </Workspace>
