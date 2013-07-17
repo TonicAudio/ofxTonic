@@ -140,7 +140,6 @@ void testApp::mouseDragged(int x, int y, int button){
   if (sliderArea.inside(x, y)) {
     float amountDown = (y - sliderArea.getY()) / sliderArea.getHeight();
     float amountAcross = (x - sliderArea.getX()) / sliderArea.getWidth();
-    printf("amountAcross: %f\n", amountAcross);
     int sliderIndex = sliders.size() * amountDown;
     sliders.at(sliderIndex).param.setNormalizedValue(amountAcross);
   }

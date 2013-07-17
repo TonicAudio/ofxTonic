@@ -39,6 +39,7 @@
 		92ae3ef9d1e9798885317d7e16f1525a /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4f283396e9d4db2ee1f3d5c63e36b0fc /* ADSR.cpp */; };
 		98576f60e227c1d99fe2f41a4e8a76ff /* BasicDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e746a5674f1a5642f7d5cff08d89acfd /* BasicDelay.cpp */; };
 		9db461599923edaaa53f7320f479da01 /* ControlPrinter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fa3806e5cc3407a997c05cece707be2a /* ControlPrinter.cpp */; };
+		A8E6DB961796562000831160 /* ofxTonicSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8E6DB941796562000831160 /* ofxTonicSynth.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -173,6 +174,9 @@
 		9cb74859f378f043e3e1523905a1e217 /* DelayUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DelayUtils.h; path = ../src/Tonic/DelayUtils.h; sourceTree = SOURCE_ROOT; };
 		9e278dfbc397ebc840cfe588eb622d9f /* CombFilter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = CombFilter.cpp; path = ../src/Tonic/CombFilter.cpp; sourceTree = SOURCE_ROOT; };
 		9f61fceac6207210f43ed3358ec63c83 /* Effect.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Effect.h; path = ../src/Tonic/Effect.h; sourceTree = SOURCE_ROOT; };
+		A8E6DB931796562000831160 /* ofxTonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTonic.h; path = ../src/ofxTonic.h; sourceTree = "<group>"; };
+		A8E6DB941796562000831160 /* ofxTonicSynth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxTonicSynth.cpp; path = ../src/ofxTonicSynth.cpp; sourceTree = "<group>"; };
+		A8E6DB951796562000831160 /* ofxTonicSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTonicSynth.h; path = ../src/ofxTonicSynth.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -381,6 +385,9 @@
 		3659747fa7d45be871634dfabd1d5392 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				A8E6DB931796562000831160 /* ofxTonic.h */,
+				A8E6DB941796562000831160 /* ofxTonicSynth.cpp */,
+				A8E6DB951796562000831160 /* ofxTonicSynth.h */,
 				0e79f97a89352266edc34bfd46af1067 /* Tonic */,
 				1502c03c48800273c68d9bb590a27d9a /* Tonic.h */,
 			);
@@ -618,6 +625,7 @@
 				356d4b680053685fe09c381b7d9b61b2 /* Synth.cpp in Sources */,
 				7f10c60dbde2e4ffd7f244db47364810 /* TableLookupOsc.cpp in Sources */,
 				7573ac1cdade011131cf4541e94fe26f /* TonicFrames.cpp in Sources */,
+				A8E6DB961796562000831160 /* ofxTonicSynth.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

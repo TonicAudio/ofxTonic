@@ -1,14 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Tonic.h"
+#include "ofxTonic.h"
 
 using namespace Tonic;
 
 class testApp : public ofBaseApp{
 
   private:
-    Synth synth;
+    ofxTonicSynth synth;
     int scaleDegree;
     void trigger();
     void setScaleDegreeBasedOnMouseX();

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
-#include "Tonic.h"
+#include "ofxTonic.h"
 
 using namespace Tonic;
 
 class testApp : public ofBaseApp{
 
-  Synth synth;
+  ofxTonicSynth synth;
 
 	public:
 		void setup();
