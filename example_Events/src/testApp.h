@@ -12,10 +12,17 @@ class FlashingRectangle{
   ofRectangle rect;
   ofColor color;
   
+  ofColor createColor(float filterVal){
+  
+    float colorIntensity =0.2 + 0.8 * (filterVal);
+    return ofColor(55 * colorIntensity, 55 * colorIntensity, 255 * colorIntensity);
+  }
+  
 public:
   
   FlashingRectangle(float xPosition, float width):
     rect(xPosition, 0, width, ofGetScreenHeight()){
+    color = createColor(0);
   }
   
   void pulseHappened(float& val){
@@ -24,8 +31,7 @@ public:
   
   void filterFreqChanged(float & val){
     rect.setHeight((1 - val) * ofGetScreenHeight());
-    float colorIntensity =0.2 + 0.8 * (val);
-    color = ofColor(55 * colorIntensity, 55 * colorIntensity, 255 * colorIntensity);
+    color = createColor(val);
   }
   
   void draw(){

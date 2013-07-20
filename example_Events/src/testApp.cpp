@@ -13,8 +13,6 @@ void testApp::setup(){
 
   ofHideCursor();
   
-  // Important -- audio doesn't work without this
-  ofSoundStreamSetup(2, 0, this, 44100, 256, 4);
   ofSetFrameRate(60);
   ofSetVerticalSync(true);
   ofSetFullscreen(true);
@@ -50,7 +48,11 @@ void testApp::setup(){
     
     Generator voice;
     
-    ControlGenerator resetTrigger = ControlMetro().bpm(ofRandom(10, 15));
+    // Send a trigger message immediately, don't wait for the first beat to happen with the metrenome 
+    ControlTrigger initialTrigger;
+    initialTrigger.trigger();
+    ControlGenerator resetTrigger = initialTrigger + ControlMetro().bpm(ofRandom(10, 15));
+    
     ControlGenerator noiseTrigger = ControlMetro().bpm( ControlRandom().min(50).max(200).trigger( resetTrigger ));
     
     ControlGenerator pulseLen = ControlRandom().min(0.1).max(0.5).trigger(resetTrigger);
@@ -94,6 +96,9 @@ void testApp::setup(){
   
   // set the synth's final output generator
   synth.setOutputGen( allVoices + allvoicesPlusReverb );
+  
+  // Important -- audio doesn't work without this
+  ofSoundStreamSetup(2, 0, this, 44100, 256, 4);
   
 }
 

@@ -7,15 +7,23 @@
 //
 
 #include "ofxTonicSynth.h"
+#include "ofSoundStream.h"
 
 namespace Tonic {
 
+ofxTonicSynth::ofxTonicSynth(){
+  Synth::Synth();
+  ofAddListener(ofEvents().update, this, &ofxTonicSynth::update);
+  ofAddListener(ofEvents().audioRequested, this, &ofxTonicSynth::audioRequested);
+}
 
 ofxTonicSynth::~ofxTonicSynth(){
   vector<ofControlChangetSubscriber*>::iterator it = eventSubscribers.begin();
   for(; it < eventSubscribers.end(); it++){
     delete *it;
   }
+  ofRemoveListener(ofEvents().update, this, &ofxTonicSynth::update);
+  ofRemoveListener(ofEvents().audioRequested, this, &ofxTonicSynth::audioRequested);
 }
 
 ofEvent<float>* ofxTonicSynth::createOFEvent(ControlGenerator gen){
@@ -26,6 +34,11 @@ ofEvent<float>* ofxTonicSynth::createOFEvent(ControlGenerator gen){
 
 void ofxTonicSynth::update(ofEventArgs& args){
   sendControlChangesToSubscribers();
+}
+
+
+void ofxTonicSynth::audioRequested(ofAudioEventArgs& args){
+
 }
 
 }
