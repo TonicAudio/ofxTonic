@@ -11,4 +11,4 @@ a2c2546ec9923ad79296b06e181a2b6fff69394d
 
 __Supported Platforms__
 
-XCode projects for now. Full PC, Linux support should be easy and forthcoming, but hasn't been tested yet.
+XCode projects for now. Full PC, Linux support should be easy and arriving soon (hopefully), but hasn't been tested yet.
