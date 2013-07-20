@@ -1,9 +1,14 @@
 o_f_x_Tonic
 ===========
 
-Open Frameworks Addon for the Tonic audio synthesis Library.
+Open Frameworks Addon for the Tonic audio synthesis Library. Tonic is a pure C++ patching libary with a deliciously simple syntax and impressive performance. 
+
 For info on Tonic, see:
 https://github.com/TonicAudio/Tonic
 
 The code contained in this repository is copied in from this commit in the main Tonic repository:
 a2c2546ec9923ad79296b06e181a2b6fff69394d
+
+__Supported Platforms__
+
+XCode projects for now. Full PC, Linux support should be easy and forthcoming, but hasn't been tested yet.
