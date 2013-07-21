@@ -1,4 +1,4 @@
-o_f_x_Tonic
+ofxTonic
 ===========
 
 Open Frameworks Addon for the Tonic audio synthesis Library. Tonic is a race-car fast, pure C++ patching tool with a refreshingly crisp and simple syntax. 
