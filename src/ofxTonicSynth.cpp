@@ -12,7 +12,6 @@
 namespace Tonic {
 
 ofxTonicSynth::ofxTonicSynth(){
-  Synth::Synth();
   ofAddListener(ofEvents().update, this, &ofxTonicSynth::update);
   ofAddListener(ofEvents().audioRequested, this, &ofxTonicSynth::audioRequested);
 }
